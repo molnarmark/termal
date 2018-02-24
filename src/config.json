@@ -1,6 +1,8 @@
 {
-  "columns": 80,
-  "rows": 20,
+  "positionX": 500,
+  "positionY": 400,
+  "columns": 50,
+  "rows": 30,
   "fontSize": 14,
   "fontFace": "Hack"
 }

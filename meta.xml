@@ -1,8 +1,18 @@
 <meta>
   <script src="src/Consts.lua" type="client"/>
   <script src="src/Keyboard.lua" type="client"/>
-  <script src="src/TerminalContext.lua" type="client"/>
+  <script src="src/Debug.lua" type="client"/>
+  <script src="src/Context.lua" type="client"/>
+  <script src="src/Window.lua" type="client"/>
+  <script src="src/Utils.lua" type="client"/>
+
+  <script src="src/virtualfs/Directory.lua" type="client"/>
+  <script src="src/virtualfs/File.lua" type="client"/>
+  <script src="src/virtualfs/Tree.lua" type="client"/>
+
   <script src="src/Termal.lua" type="client"/>
 
-  <file src="config.json"/>
+  <file src="src/config.json" type="client"/>
+  <file src="termal.fs" type="client"/>
+  <file src="src/assets/title-buttons.png"/>
 </meta>
