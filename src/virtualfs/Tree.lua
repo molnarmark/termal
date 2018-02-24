@@ -43,9 +43,10 @@ end
 
 function Tree:save()
 	local file = fileOpen(TERMAL_FS_FILE)
+
 	if file then
 		local byteFS = self:toBytes(toJSON(self.fileSystem))
-		local bytesWritten = fileWrite(file, "asd")
+		local bytesWritten = fileWrite(file, byteFS)
 		local flushed = fileFlush(file)
 		local closed = fileClose(file)
 		debugLog("Successfully flushed: " .. tostring(flushed))
@@ -53,7 +54,7 @@ function Tree:save()
 		debugLog("Wrote " .. tostring(bytesWritten) .. " bytes to the File System.")
 		outputDebugString(byteFS)
 	else
-		debugLog("Couldn't open the file")
+		debugLog("Couldn't open/create the file")
 	end
 end
 

@@ -24,10 +24,14 @@ function Window:_calculateSize(columns, rows)
 	debugLog("Width -> " .. width .. " Height -> " .. height)
 end
 
+function Window:write(text)
+	return self.context:_writeToBuffer(text)
+end
+
 function Window:draw()
 	dxDrawRectangle(self.x, self.y - 30, self.width, 60, tocolor(13, 19, 23, 255))
 	dxDrawImage(self.x + 10, self.y - 22, 54, 14, "src/assets/title-buttons.png")
-	dxDrawRectangle(self.x, self.y, self.width, self.height, tocolor(13, 19, 23, 255), true)
+	dxDrawRectangle(self.x, self.y, self.width, self.height, tocolor(13, 19, 23, 255))
 end
 
 function Window:update()

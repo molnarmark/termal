@@ -4,14 +4,15 @@ Context.__index = Context
 function Context:create(config)
 	local data = {
 		_config = config,
+		cursorX = 1, cursorY = 1,
 		pixels = {}
 	}
 
-	for r = 0, config.rows - 1 do
+	for r = 1, config.rows do
 		data.pixels[r] = {}
-		for c = 0, config.columns - 1 do
+		for c = 1, config.columns do
 			data.pixels[r][c] = {
-				bg = COLOR_WHITE,
+				bg = COLOR_DARK_GREY,
 				fg = COLOR_WHITE,
 				value = nil
 			}
@@ -23,8 +24,8 @@ function Context:create(config)
 	return self
 end
 
-function Context:getDataAtPixels(r, c)
-	return self.pixels[r][c]
+function Context:getDataAtPixels(row, column)
+	return self.pixels[row][column]
 end
 
 function Context:setPixelColor(pixel, fgColor, bgColor)
@@ -48,27 +49,45 @@ function Context:_clear()
 	end
 end
 
+function Context:_writeToBuffer(data)
+	local splitText = split(data, " ")
+
+	for index, text in pairs(splitText) do
+		debugLog(text)
+		self:_setPixelValue(self.cursorX, self.cursorY, text)
+		self.cursorY = self.cursorY + text:len()
+	end
+end
+
+function Context:_setPixelValue(row, column, value)
+	self.pixels[row][column].value = value
+end
+
 function Context:update()
 
 end
 
 function Context:draw()
-	for r = 0, self._config.rows - 1 do
-		for c = 0, self._config.columns - 1 do
+	for r = 1, self._config.rows do
+		for c = 1, self._config.columns do
 			local pixelData = self:getDataAtPixels(r, c)
 
-			local x = self._config.positionX + (c * TERMAL_PIXEL_SIZE)
-			local y = self._config.positionY + (r * TERMAL_PIXEL_SIZE)
+			local x = self._config.positionX + (c * TERMAL_PIXEL_SIZE) - TERMAL_PIXEL_SIZE
+			local y = self._config.positionY + (r * TERMAL_PIXEL_SIZE) - TERMAL_PIXEL_SIZE
 
 			-- debugLog(x)
 
-			local bgr = pixelData.bg.r % r
-			local bgg = pixelData.bg.g % c
-			local bgb = pixelData.bg.b % r
+			local bgr = pixelData.bg.r
+			local bgg = pixelData.bg.g
+			local bgb = pixelData.bg.b
 
 			local value = pixelData.value
 
-			dxDrawRectangle(x, y, TERMAL_PIXEL_SIZE, TERMAL_PIXEL_SIZE, tocolor(bgr, bgg, bgb, 255), true)
+			dxDrawRectangle(x, y, TERMAL_PIXEL_SIZE, TERMAL_PIXEL_SIZE, tocolor(bgr, bgg + c, bgb + r, 255), false)
+
+			if value ~= nil then
+				dxDrawText(value, x, y, x, y, tocolor(255, 255, 255, 255), 1, "arial", "left", "center", false, false, true, true, false)
+			end
 		end
 	end
 end

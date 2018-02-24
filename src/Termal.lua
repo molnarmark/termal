@@ -9,7 +9,8 @@ function Termal()
 	local termalConfig = readConfig()
 	local window = Window:create(termalConfig)
 	local tree = Tree:create()
-	tree:makeDirectory("subdir")
+
+	window:write("atleast something is showing up..")
 
 	addEventHandler("onClientPreRender", root, function()
 		window:update()
