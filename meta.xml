@@ -1,8 +1,8 @@
 <meta>
-  <script src="consts.lua" type="client"/>
-  <script src="keyboard.lua" type="client"/>
-  <script src="renderer.lua" type="client"/>
-  <script src="termal.lua" type="client"/>
+  <script src="src/Consts.lua" type="client"/>
+  <script src="src/Keyboard.lua" type="client"/>
+  <script src="src/TerminalContext.lua" type="client"/>
+  <script src="src/Termal.lua" type="client"/>
 
   <file src="config.json"/>
 </meta>

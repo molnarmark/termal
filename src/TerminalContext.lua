@@ -1,21 +1,20 @@
-Renderer = {}
-Renderer.__index = Renderer
+TerminalContext = {}
+TerminalContext.__index = TerminalContext
 
-function Renderer:create(config)
+function TerminalContext:create()
 	local data = {
-		config = config,
 		pixels = {}
 	}
 
-	data.__index = Renderer
-	return setmetatable(data, Renderer)
+	data.__index = TerminalContext
+	return setmetatable(data, TerminalContext)
 end
 
-function Renderer:getDataAtPixels(r, c)
+function TerminalContext:getDataAtPixels(r, c)
 	return self.pixels[r][c]
 end
 
-function Renderer:setPixelColor(pixel, fgColor, bgColor)
+function TerminalContext:setPixelColor(pixel, fgColor, bgColor)
 	pixel.fg.r = fgColor.r
 	pixel.fg.g = fgColor.g
 	pixel.fg.b = fgColor.b
@@ -27,7 +26,7 @@ function Renderer:setPixelColor(pixel, fgColor, bgColor)
 	pixel.value = nil
 end
 
-function Renderer:clear()
+function TerminalContext:clear()
 	for r = 1, self.config.rows do
 		for c = 1, self.config.columns do
 			local pixelData = self:getDataAtPixels(r, c)
@@ -36,7 +35,7 @@ function Renderer:clear()
 	end
 end
 
-function Renderer:draw()
+function TerminalContext:draw()
 	for r = 1, self.config.rows do
 		for c = 1, self.config.columns do
 			local pixelData = self:getDataAtPixels(r, c)

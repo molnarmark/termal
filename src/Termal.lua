@@ -1,15 +1,14 @@
+TERMAL = {}
+
 local function readConfig()
 	local file = fileOpen(TERMAL_CONFIG_FILE)
-	local configuration = fromJSON(fileRead(file, 99999))
+	TERMAL = fromJSON(fileRead(file, 99999))
 	fileClose(file)
-
-	return configuration
 end
 
 function Termal()
-	local configuration = readConfig(TERMAL_CONFIG_FILE)
-	local renderer = Renderer:create(configuration)
-	renderer:clear()
+	local window = Window:create()
+	window:update()
 end
 
 if fileExists(TERMAL_CONFIG_FILE) then
